@@ -1,0 +1,14 @@
+# postgres-pvc-budget.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: locations-pvc
+  namespace: prpo-microservices
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi       # smaller disk saves money
+  storageClassName: default  # Standard managed disk
+

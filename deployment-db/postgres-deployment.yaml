@@ -1,0 +1,60 @@
+# postgres-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locations-db
+  namespace: prpo-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locations-db
+  template:
+    metadata:
+      labels:
+        app: locations-db
+    spec:
+      containers:
+        - name: locations-db
+          image: postgis/postgis:15-3.4
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: locations-secret
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: locations-secret
+                  key: DB_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                     name: locations-secret
+                     key: DB_NAME
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: locations-data
+              mountPath: /var/lib/postgresql/data/locations-data
+      volumes:
+        - name: locations-data
+          persistentVolumeClaim:
+            claimName: locations-pvc
+---
+# postgres-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: locations-db
+  namespace: prpo-microservices
+spec:
+  type: ClusterIP
+  selector:
+    app: locations-db
+  ports:
+    - port: 5432
+      targetPort: 5432

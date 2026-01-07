@@ -1,0 +1,4 @@
+asadmin create-jdbc-connection-pool \
+create-jdbc-connection-pool --datasourceclassname org.postgresql.xa.PGXADataSource --restype javax.sql.XADataSource --property user=location-user:password=password123:databaseName=locations:serverName=localhost:portNumber=5432 ratingsPool
+
+create-jdbc-resource --connectionpoolid locationsPool jdbc/locations

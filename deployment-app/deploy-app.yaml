@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: location-app
+  namespace: prpo-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-app
+  template:
+    metadata:
+      labels:
+        app: location-app
+    spec:
+      containers:
+      - name: location-app
+        image: prporegistry.azurecr.io/location-service:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: locations-db
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: locations-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: locations-secret
+              key: DB_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: locations-secret
+              key: DB_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: location-app
+  namespace: prpo-microservices
+spec:
+  type: ClusterIP
+  selector:
+    app: location-app
+  ports:
+    - port: 8080
+      targetPort: 8080
+
