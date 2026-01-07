@@ -29,7 +29,10 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.AKS_KUBECONFIG }}" > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
-
+      - name: Login to ACR
+        run: |
+         az acr login --name prporegistry
+      
       # Build and push image to ACR
       - name: Build and push image
         run: |
