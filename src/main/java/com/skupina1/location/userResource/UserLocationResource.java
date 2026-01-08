@@ -1,23 +1,33 @@
 package com.skupina1.location.userResource;
 
 
-import com.skupina1.location.userLocation.LocationDTO;
-import com.skupina1.location.userLocation.UserLocation;
-import com.skupina1.location.userLocation.UserLocationDTO;
-import com.skupina1.location.userRepo.DistanceDTO;
-import com.skupina1.location.userRepo.UserRepo;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import java.util.Date;
+import java.util.List;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
 
-import java.util.Date;
-import java.util.List;
+import com.skupina1.location.userLocation.LocationDTO;
+import com.skupina1.location.userLocation.UserLocation;
+import com.skupina1.location.userLocation.UserLocationDTO;
+import com.skupina1.location.userRepo.DistanceDTO;
+import com.skupina1.location.userRepo.UserRepo;
+
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 //rest api for the location api
 @Path("location")
@@ -71,6 +81,7 @@ public class UserLocationResource {
                     .entity("Please input location id and userLocation")
                     .build();
         }
+    
         List<UserLocation> locations = userRepo.findLocationByUserId(id);
         if (!locations.isEmpty()) {
             return Response.status(Response.Status.CONFLICT)
@@ -92,7 +103,7 @@ public class UserLocationResource {
                     .build();
         }
 
-        UserLocationDTO userLocationDTO = new UserLocationDTO(currentLocation.getId(), userLocation.getLat(), userLocation.getLng() , currentTimestamp , currentTimestamp , currentLocation.getIsDriver());
+        UserLocationDTO userLocationDTO = new UserLocationDTO(currentLocation.getId(), userLocation.getLat(), userLocation.getLng() , currentTimestamp , currentTimestamp , userLocation.getIsDriver());
         return Response.ok(userLocationDTO).build();
     }
 

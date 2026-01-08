@@ -7,9 +7,11 @@ package com.skupina1.location.userLocation;
 public class LocationDTO {
     private double lng;
     private double lat;
-    public LocationDTO(double lng, double lat) {
+    private Boolean isDriver ; 
+    public LocationDTO(double lng, double lat , Boolean isDriver) {
         this.lng = lng;
         this.lat = lat;
+        this.isDriver = isDriver ; 
     }
     public LocationDTO(){
 
@@ -25,5 +27,11 @@ public class LocationDTO {
     }
     public void setLat(double lat) {
         this.lat = lat;
+    }
+    public Boolean getIsDriver(){
+        return this.isDriver;
+    }
+    public void setIsDriver(Boolean isDriver){
+        this.isDriver = isDriver ; 
     }
 }

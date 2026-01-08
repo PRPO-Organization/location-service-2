@@ -12,15 +12,13 @@ public class  UserLocationDTO extends LocationDTO{
     private long id ;
     Date createdAt;
     Date updatedAt;
-    boolean isDriver;
     public UserLocationDTO(){
     }
-    public UserLocationDTO(long id  ,  double lng, double lat, Date createdAt, Date updatedAt , boolean isDriver) {
-        super(lng,lat);
+    public UserLocationDTO(long id  ,  double lng, double lat, Date createdAt, Date updatedAt , Boolean isDriver) {
+        super(lng,lat , isDriver);
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.isDriver = isDriver;
     }
     public long getId() {
         return this.id;
@@ -36,10 +34,6 @@ public class  UserLocationDTO extends LocationDTO{
         this.createdAt = createdAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    public Date  getUpdatedAt() {
-        return updatedAt;
-    }
+   
+  
 }
