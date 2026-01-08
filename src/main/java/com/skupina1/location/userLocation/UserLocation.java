@@ -29,11 +29,12 @@ import jakarta.persistence.TemporalType;
         ),
         @NamedNativeQuery(
                 name="UserLocation.findNearestLocation",
-                query = "select * from public.user_locations where is_driver = true"+
-                "order BY ST_DISTANCE(location::geography , ST_SetSRID(ST_MakePoint(:lng,:lat),4326)::geography) "+
-                "LIMIT 5",
-                resultClass = UserLocation.class
-        )
+    query = "select * from public.user_locations " +
+    "where is_driver = true " +
+    "order BY ST_DISTANCE(location::geography, ST_SetSRID(ST_MakePoint(?1,?2),4326)::geography) " +
+    "LIMIT 5",
+            resultClass = UserLocation.class
+        ) 
 })
 @NamedQueries({
         @NamedQuery(
@@ -63,6 +64,11 @@ public class UserLocation{
     public UserLocation( Point location , Long id){
         this.location = location;
         this.id = id;
+    }
+    public UserLocation( Point location , Long id , Boolean isDriver){
+        this.location = location;
+        this.id = id;
+        this.isDriver  = isDriver;
     }
     public void setLocation(Point location  ) {
         this.location = location;

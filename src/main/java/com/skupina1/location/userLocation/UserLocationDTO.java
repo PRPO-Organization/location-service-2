@@ -2,6 +2,8 @@ package com.skupina1.location.userLocation;
 
 import java.util.Date;
 
+import org.locationtech.jts.geom.Point;
+
 //class that contains the
 //id --> long
 //user_id -->string (mongodb objectId)
@@ -19,6 +21,13 @@ public class  UserLocationDTO extends LocationDTO{
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+      public UserLocationDTO(UserLocation ul) {
+        this.id = ul.getId();
+        Point location = ul.getLocation(); 
+        this.setIsDriver(ul.getIsDriver());
+        this.setLat(location.getY());
+        this.setLng(location.getX());
     }
     public long getId() {
         return this.id;

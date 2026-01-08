@@ -3,6 +3,7 @@ package com.skupina1.location.userResource;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -92,7 +93,7 @@ public class UserLocationResource {
         Date currentTimestamp = new Date() ;
         GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 4326);
         Point point = gf.createPoint(new Coordinate(userLocation.getLng(), userLocation.getLat()));
-        UserLocation currentLocation = new UserLocation( point , id);
+        UserLocation currentLocation = new UserLocation( point , id , userLocation.getIsDriver());
         try {
             currentLocation.setCreatedAt(currentTimestamp);
             currentLocation.setUpdatedAt(currentTimestamp);
@@ -205,4 +206,41 @@ public class UserLocationResource {
         //convert to points and use the query in userRepo to get the distance
         return Response.ok(distanceDTO).build();
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/nearest/{id}")
+    public Response nearestDrivers(
+            @PathParam("id") Long id , 
+            LocationDTO currentLocation 
+    ){
+        if(currentLocation ==null||id==null){
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("dest or id is null")
+                    .build();
+        }
+        try {
+            UserLocation userLocation = userRepo.getUserLocation(id);
+            if (userLocation == null ){
+                return Response.status(Response.Status.NOT_FOUND)   
+                    .entity("location not found")
+                    .build();
+            }
+            GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 4326);
+            Point point = gf.createPoint(new Coordinate(currentLocation.getLng(),currentLocation.getLat()));
+            List<UserLocation> nearestDrivers = userRepo.findNearestUsers(point);
+            List<UserLocationDTO> nearestDriversDTO = nearestDrivers.stream()
+                .map(UserLocationDTO::new)
+                .collect(Collectors.toList());
+            return Response.ok(nearestDriversDTO).build();
+        }catch(Exception exception){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(exception)
+                .build(); 
+        }
+        
+       
 }
+}
+

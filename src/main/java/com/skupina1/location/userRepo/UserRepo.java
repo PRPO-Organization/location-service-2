@@ -1,16 +1,15 @@
 package com.skupina1.location.userRepo;
-import com.skupina1.location.userLocation.UserLocation;
-import jakarta.ejb.Stateless;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.*;
-import jakarta.inject.Inject;
-
-import jakarta.transaction.Transactional;
-import org.locationtech.jts.geom.Point;
-
-
 import java.util.Date;
 import java.util.List;
+
+import org.locationtech.jts.geom.Point;
+
+import com.skupina1.location.userLocation.UserLocation;
+
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Stateless
 public  class UserRepo {
@@ -77,11 +76,11 @@ public  class UserRepo {
     }
 
     //function to find the closest neighbour using a native named query
-    public UserLocation findNearestUser(UserLocation userLocation){
+    public List<UserLocation> findNearestUsers(Point userLocation){
         return em.createNamedQuery("UserLocation.findNearestLocation",UserLocation.class)
-                .setParameter("lng",userLocation.getLocation().getX())
-                .setParameter("lat",userLocation.getLocation().getY())
-                .getSingleResult();
+                .setParameter(1,userLocation.getX())
+                .setParameter(2,userLocation.getY())
+                .getResultList();
     }
 
     //find the distance between two points in space
