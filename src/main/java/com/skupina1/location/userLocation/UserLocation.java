@@ -1,16 +1,22 @@
 package com.skupina1.location.userLocation;
 
-import jakarta.persistence.*;
+import java.util.Date;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-
-import com.skupina1.location.converter.GeometryConverter;
 import org.locationtech.jts.geom.Point;
 
-import java.util.Date;
+import com.skupina1.location.converter.GeometryConverter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedNativeQueries;
+import jakarta.persistence.NamedNativeQuery;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 
 @Entity
@@ -23,9 +29,9 @@ import java.util.Date;
         ),
         @NamedNativeQuery(
                 name="UserLocation.findNearestLocation",
-                query = "select * from public.user_locations "+
+                query = "select * from public.user_locations where is_driver = true"+
                 "order BY ST_DISTANCE(location::geography , ST_SetSRID(ST_MakePoint(:lng,:lat),4326)::geography) "+
-                "LIMIT 1",
+                "LIMIT 5",
                 resultClass = UserLocation.class
         )
 })
@@ -39,7 +45,6 @@ import java.util.Date;
 @Table(name="user_locations")
 public class UserLocation{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Convert(converter = GeometryConverter.class)
     @Column(name="location",columnDefinition = "geography")
@@ -47,16 +52,19 @@ public class UserLocation{
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    @Column(name="is_driver")
+    private boolean isDriver;
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
     public UserLocation(){
 
     }
-    public UserLocation( Point location){
+    public UserLocation( Point location , Long id){
         this.location = location;
+        this.id = id;
     }
-    public void setLocation(Point location) {
+    public void setLocation(Point location  ) {
         this.location = location;
     }
     public Point getLocation() {
@@ -76,6 +84,12 @@ public class UserLocation{
     }
     public void setUpdatedAt (Date updatedAt){
         this.updatedAt = updatedAt;
+    }
+    public void setIsDriver(Boolean isDriver){
+        this.isDriver = isDriver ; 
+    }
+    public Boolean getIsDriver(){
+        return this.isDriver  ; 
     }
 
 }

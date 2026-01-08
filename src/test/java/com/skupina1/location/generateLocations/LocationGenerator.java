@@ -27,16 +27,16 @@ public class LocationGenerator {
 
     //generate locations for the tests
     //using random latitude and longitude
-    public static List<UserLocation> generateLocations(int n) {
-        List<UserLocation> userLocations = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            double lat = getRandomLatitude();
-            double lon = getRandomLongitude();
-            Point point = geometryFactory.createPoint(new Coordinate(lon, lat));
-            String userId = UUID.randomUUID().toString();
-            UserLocation userLocation = new UserLocation(point);
-            userLocations.add(userLocation);
-        }
-        return userLocations;
-    }
+//    public static List<UserLocation> generateLocations(int n) {
+//        List<UserLocation> userLocations = new ArrayList<>();
+//        for (int i = 0; i < n; i++) {
+//            double lat = getRandomLatitude();
+//            double lon = getRandomLongitude();
+//            Point point = geometryFactory.createPoint(new Coordinate(lon, lat));
+//            String userId = UUID.randomUUID().toString();
+//            UserLocation userLocation = new UserLocation(point);
+//            userLocations.add(userLocation);
+//        }
+//        return userLocations;
+//    }
 }

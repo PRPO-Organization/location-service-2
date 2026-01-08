@@ -12,13 +12,15 @@ public class  UserLocationDTO extends LocationDTO{
     private long id ;
     Date createdAt;
     Date updatedAt;
+    boolean isDriver;
     public UserLocationDTO(){
     }
-    public UserLocationDTO(long id  ,  double lng, double lat, Date createdAt, Date updatedAt){
+    public UserLocationDTO(long id  ,  double lng, double lat, Date createdAt, Date updatedAt , boolean isDriver) {
         super(lng,lat);
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isDriver = isDriver;
     }
     public long getId() {
         return this.id;

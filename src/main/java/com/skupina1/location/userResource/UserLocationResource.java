@@ -29,7 +29,7 @@ public class UserLocationResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response getLocation(@PathParam("id") Long id) {
+    public Response getLocation(@PathParam("id") Long id ) {
         if (id == null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("id must not be null")
@@ -49,7 +49,7 @@ public class UserLocationResource {
                         .build();
             }
             UserLocation currentLocation = currentLocations.get(0);
-            UserLocationDTO userLocationDTO = new UserLocationDTO(id,currentLocation.getLocation().getX(), currentLocation.getLocation().getY(),currentLocation.getCreatedAt(),currentLocation.getUpdatedAt());
+            UserLocationDTO userLocationDTO = new UserLocationDTO(id,currentLocation.getLocation().getX(), currentLocation.getLocation().getY(),currentLocation.getCreatedAt(),currentLocation.getUpdatedAt(),currentLocation.getIsDriver());
             return Response.ok(userLocationDTO).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND)
@@ -81,7 +81,7 @@ public class UserLocationResource {
         Date currentTimestamp = new Date() ;
         GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 4326);
         Point point = gf.createPoint(new Coordinate(userLocation.getLng(), userLocation.getLat()));
-        UserLocation currentLocation = new UserLocation( point);
+        UserLocation currentLocation = new UserLocation( point , id);
         try {
             currentLocation.setCreatedAt(currentTimestamp);
             currentLocation.setUpdatedAt(currentTimestamp);
@@ -92,7 +92,7 @@ public class UserLocationResource {
                     .build();
         }
 
-        UserLocationDTO userLocationDTO = new UserLocationDTO(currentLocation.getId(), userLocation.getLat(), userLocation.getLng() , currentTimestamp , currentTimestamp);
+        UserLocationDTO userLocationDTO = new UserLocationDTO(currentLocation.getId(), userLocation.getLat(), userLocation.getLng() , currentTimestamp , currentTimestamp , currentLocation.getIsDriver());
         return Response.ok(userLocationDTO).build();
     }
 

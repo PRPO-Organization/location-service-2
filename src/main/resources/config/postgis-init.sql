@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS user_locations (
                                               id SERIAL PRIMARY KEY,
                                               location geometry(Point, 4326),
                                               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                              is_driver boolean
 );
 
 -- Create spatial index for better performance
