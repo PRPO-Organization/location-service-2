@@ -13,6 +13,8 @@ spec:
       labels:
         app: location-app
     spec:
+       imagePullSecrets:
+      - name: acr-secret
       containers:
       - name: location-app
         image: prporegistry.azurecr.io/location-service:latest
