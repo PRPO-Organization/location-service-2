@@ -25,15 +25,11 @@ jobs:
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
       
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-      
+     
+      - name: Build and push Docker image (no cache)
+        run: |
+          docker build --no-cache -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest .
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest 
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: prporegistry.azurecr.io/location-service:.*|image: prporegistry.azurecr.io/location-service:${{ github.sha }}|g" k8s/deployment.yaml
