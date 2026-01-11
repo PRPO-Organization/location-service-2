@@ -10,10 +10,6 @@ spec:
       app: location-app
   template:
     metadata:
-    annotations:
-      deployedAt: "1768137820"
-    annotations:
-      deployedAt: "1768137616"
       labels:
         app: location-app
     spec:
