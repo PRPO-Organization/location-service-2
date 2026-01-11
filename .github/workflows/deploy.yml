@@ -35,6 +35,7 @@ jobs:
       
       - name: Update Kubernetes manifest
         run: |
+          sed -i "/metadata:/a \ \ \ \ annotations:\n      deployedAt: \"$(date +%s)\"" k8s/deployment.yaml
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add k8s/deployment.yaml
