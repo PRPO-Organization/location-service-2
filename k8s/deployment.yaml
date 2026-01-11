@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+    annotations:
+      deployedAt: "1768137616"
   name: location-app
   namespace: prpo-microservices
 spec:
@@ -10,6 +12,8 @@ spec:
       app: location-app
   template:
     metadata:
+    annotations:
+      deployedAt: "1768137616"
       labels:
         app: location-app
     spec:
@@ -43,6 +47,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+    annotations:
+      deployedAt: "1768137616"
   name: location-app
   namespace: prpo-microservices
 spec:
