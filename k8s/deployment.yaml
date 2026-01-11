@@ -17,7 +17,7 @@ spec:
       - name: acr-secret
       containers:
       - name: location-app
-        image: prporegistry.azurecr.io/location-service:latest
+        image: prporegistry.azurecr.io/location-service:d07cff1341757761baf6f926280da27df08f04e2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
