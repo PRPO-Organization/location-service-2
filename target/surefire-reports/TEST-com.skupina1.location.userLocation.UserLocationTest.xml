@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.skupina1.location.userLocation.UserLocationTest" time="1.016" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.skupina1.location.userLocation.UserLocationTest" time="0.907" errors="0" skipped="0">
   <properties>
     <property name="jansi.mode" value="force"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -58,5 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
-  <testcase classname="com.skupina1.location.userLocation.UserLocationTest" name="com.skupina1.location.userLocation.UserLocationTest.testGenerateLocationsWithoutDB" time="1.016"/>
+  <testcase classname="com.skupina1.location.userLocation.UserLocationTest" name="com.skupina1.location.userLocation.UserLocationTest.testGenerateLocationsWithoutDB" time="0.907"/>
 </testsuite>

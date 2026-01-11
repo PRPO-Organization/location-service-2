@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 @Stateless
 public  class UserRepo {
 
-    @PersistenceContext(unitName = "JPADataSourceExamplePU")
+    @PersistenceContext(unitName = "JPADatasourceExamplePU")
     private EntityManager em;
     
     public UserRepo() {
