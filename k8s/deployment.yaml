@@ -47,10 +47,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    annotations:
-      deployedAt: "1768137820"
-    annotations:
-      deployedAt: "1768137616"
   name: location-app
   namespace: prpo-microservices
 spec:
