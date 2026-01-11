@@ -31,7 +31,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
             ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
       
       - name: Update Kubernetes manifest

@@ -16,6 +16,7 @@ public  class UserRepo {
 
     @PersistenceContext(unitName = "JPADatasourceExamplePU")
     private EntityManager em;
+    
     public UserRepo() {
     }
     @Transactional
@@ -94,4 +95,8 @@ public  class UserRepo {
         return distance.doubleValue();
 
     }
+    public void setEm(EntityManager em){
+        this.em = em ;
+    }
+   
 }
