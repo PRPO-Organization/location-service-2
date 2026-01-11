@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: location-service
+  namespace: argocd
+spec:
+  project: prpo-projekt
+  source:
+    repoURL: https://github.com/PRPO-Organization/location-service2.git
+    path: k8s
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prpo-microservices
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
