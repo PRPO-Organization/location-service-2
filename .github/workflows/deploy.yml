@@ -31,7 +31,7 @@ jobs:
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest 
       - name: Update Kubernetes manifest
         run: |
-          sed -i "s|image: .*/location-service:.*|image: ${ACR_LOGIN_SERVER}/${IMAGE_NAME}:latest|" k8s/deployment.yaml
+          sed -i "s|image: .*/location-service:.*|image: ${{secrets.ACR_LOGIN_SERVER}}/${{secrets.IMAGE_NAME}}:latest|" k8s/deployment.yaml
           
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
