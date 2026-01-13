@@ -1,4 +1,3 @@
-persistence.xml
 DataSourceConfig.java
 listener/*
 post-boot-cmd.txt
