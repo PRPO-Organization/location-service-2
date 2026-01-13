@@ -77,6 +77,9 @@ public class UserLocationResource {
     @Path("/{id}")
     public Response postLocation(@PathParam("id") Long id, LocationDTO userLocation) {
         //System.out.println("POST req");
+        if (userLocation.getIsDriver()==null){
+            userLocation.setIsDriver(false);
+        }
         if (userLocation == null || id == null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Please input location id and userLocation")
@@ -114,6 +117,9 @@ public class UserLocationResource {
     @Path("/{id}")
     @Transactional
     public Response patchLocation(@PathParam("id") Long id, LocationDTO userLocation) {
+        if (userLocation.getIsDriver()==null){
+            userLocation.setIsDriver(false);
+        }
         if (id == null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("id is required")
@@ -143,6 +149,9 @@ public class UserLocationResource {
     @Path("/{id}")
     @Transactional
     public Response putLocation(@PathParam("id") Long id, UserLocationDTO userLocation) {
+        if (userLocation.getIsDriver()==null){
+            userLocation.setIsDriver(false);
+        }
         if (id == null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("id is required")
@@ -215,6 +224,9 @@ public class UserLocationResource {
             @PathParam("id") Long id , 
             LocationDTO currentLocation 
     ){
+        if (currentLocation.getIsDriver()==null){
+            currentLocation.setIsDriver(false);
+        }
         if(currentLocation ==null||id==null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("dest or id is null")
