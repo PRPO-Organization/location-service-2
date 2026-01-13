@@ -27,8 +27,8 @@ jobs:
      
       - name: Build and push Docker image (no cache)
         run: |
-          docker build --no-cache -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest .
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest 
+          docker build --no-cache -t prporegistry.azurecr.io/${{ env.IMAGE_NAME }}:latest .
+          docker push prporegistry.azurecr.io/${{ env.IMAGE_NAME }}:latest 
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: .*/location-service:.*|image: ${{secrets.ACR_LOGIN_SERVER}}/${{secrets.IMAGE_NAME}}:latest|" k8s/deployment.yaml
