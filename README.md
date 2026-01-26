@@ -40,4 +40,3 @@ http
 GET /api/location/health
 
 
-## Contact PRPO-Organization ## Links - [GitHub Repository](https://github.com/PRPO-Organization/location-service-2) - [Azure Portal](https://portal.azure.com)
