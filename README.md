@@ -37,14 +37,7 @@ http
 DELETE /api/locations/{id}
 #### Health Check
 http
-GET /health
+GET /api/location/health
 
 
-## Project Structure
-location-service-2/
-├── .github/workflows/         
-├── app-deployment/deployment.yaml
-├── src/                       
-├── Dockerfile
-└── README.md
 ## Contact PRPO-Organization ## Links - [GitHub Repository](https://github.com/PRPO-Organization/location-service-2) - [Azure Portal](https://portal.azure.com)
